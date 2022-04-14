@@ -15,6 +15,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
+                
                 <div class="card-header">
                     <div class="float-left">
                         <h5>Data Buku</h5>
@@ -23,8 +24,9 @@
                         <a href="{{ route('tambah-buku') }}" class="btn btn-info btn-sm">Tambah Data</a>
                     </div>
                 </div>
+                
                 <div class="card-body">
-                    <table class="table table-striped" id="table">
+                    <table class="table" id="table">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -33,7 +35,6 @@
                                 <th>Tahun Terbit</th>
                                 <th>Penerbit</th>
                                 <th>Pengarang</th>
-                                <th>Kategori</th>
                                 <th>Rak</th>
                                 <th>Jumlah</th>
                                 <th>Gambar</th>
@@ -49,7 +50,6 @@
                                 <td>{{ $data->tahun_terbit }}</td>
                                 <td>{{ $data->penerbit_buku }}</td>
                                 <td>{{ $data->pengarang_buku }}</td>
-                                <td>{{ $data->nama_jenis }}</td>
                                 <td>{{ $data->nama_rak }}</td>
                                 <td>{{ $data->jumlah_buku }}</td>
                                 <td><img src="{{ asset('gambar/'. $data->gambar) }}" alt="Images" width="30px"></td>
@@ -64,6 +64,7 @@
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>

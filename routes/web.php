@@ -73,6 +73,7 @@ Route::group(['middleware' => ['web','auth:login']],function(){
     Route::get('/edit-anggota/{id}', [AnggotaController::class, 'edit'])->name('edit-anggota');
     Route::post('/update-anggota/{id}', [AnggotaController::class, 'update'])->name('update-anggota');
     Route::get('/delete-anggota/{id}', [AnggotaController::class, 'delete'])->name('hapus-anggota');
+    Route::get('/qrcode-anggota/{id}', [AnggotaController::class, 'qrcode'])->name('qrcode-anggota');
 
     //peminjaman
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');

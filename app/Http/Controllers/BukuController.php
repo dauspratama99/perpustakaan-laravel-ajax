@@ -11,10 +11,11 @@ class BukuController extends Controller
     public function index()
     {
         $data['buku'] = DB::table('buku_models')
-                        ->join('jenis__bukus', 'buku_models.kategori_buku_id', '=', 'jenis__bukus.id')
                         ->join('raks', 'buku_models.rak_buku_id', '=', 'raks.id')
-                        ->select('buku_models.*', 'jenis__bukus.nama_jenis', 'raks.nama_rak')
+                        ->select('buku_models.*', 'raks.nama_rak')
                         ->get();
+
+       
         return view ('page.buku.view-data', $data);
     }
 
@@ -33,7 +34,6 @@ class BukuController extends Controller
             'tahun_terbit' => 'required',
             'penerbit_buku' => 'required',
             'pengarang_buku' => 'required',
-            'kategori_buku_id' => 'required',
             'rak_buku_id' => 'required',
             'jumlah_buku' => 'required',
             'gambar' => 'required',
@@ -57,7 +57,6 @@ class BukuController extends Controller
            'tahun_terbit' => $r->tahun_terbit,
            'penerbit_buku' => $r->penerbit_buku,
            'pengarang_buku' => $r->pengarang_buku,
-           'kategori_buku_id' => $r->kategori_buku_id,
            'rak_buku_id' => $r->rak_buku_id,
            'jumlah_buku' => $r->jumlah_buku,
            'gambar' => $fileName,
@@ -87,7 +86,6 @@ class BukuController extends Controller
             'tahun_terbit' => 'required',
             'penerbit_buku' => 'required',
             'pengarang_buku' => 'required',
-            'kategori_buku_id' => 'required',
             'rak_buku_id' => 'required',
             'jumlah_buku' => 'required',
           
@@ -107,7 +105,6 @@ class BukuController extends Controller
                 'tahun_terbit' => $r->tahun_terbit,
                 'penerbit_buku' => $r->penerbit_buku,
                 'pengarang_buku' => $r->pengarang_buku,
-                'kategori_buku_id' => $r->kategori_buku_id,
                 'rak_buku_id' => $r->rak_buku_id,
                 'jumlah_buku' => $r->jumlah_buku,
             ]);
@@ -131,7 +128,6 @@ class BukuController extends Controller
                 'tahun_terbit' => $r->tahun_terbit,
                 'penerbit_buku' => $r->penerbit_buku,
                 'pengarang_buku' => $r->pengarang_buku,
-                'kategori_buku_id' => $r->kategori_buku_id,
                 'rak_buku_id' => $r->rak_buku_id,
                 'jumlah_buku' => $r->jumlah_buku,
                 'gambar' => $fileName, 

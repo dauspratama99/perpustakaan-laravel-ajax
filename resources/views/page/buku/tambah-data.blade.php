@@ -55,16 +55,6 @@
                                 <div class="col-md-6">
 
                                     <div class="form-group">
-                                        <label for="">Kategori Buku</label>
-                                        <select name="kategori_buku_id" id="" class="form-control">
-                                            <option value="" selected disabled>- Pilih Kategori Buku -</option>
-                                            @foreach ($jenis as $i => $data )
-                                                <option value="{{ $data->id }}">{{ $data->nama_jenis }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="">Rak Buku</label>
                                         <select name="rak_buku_id" id="" class="form-control">
                                             <option value="" selected disabled>- Pilih Rak Buku -</option>

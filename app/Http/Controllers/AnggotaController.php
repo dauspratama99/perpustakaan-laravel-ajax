@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AnggotaController extends Controller
 {
@@ -105,5 +106,12 @@ class AnggotaController extends Controller
         } else {
             return redirect('anggota')->with('error', 'Data gagal dihapus');
         }
+    }
+
+    public function qrcode($id)
+    {
+        $data = DB::table('anggotas')->where('id', $id)->first();
+        $qrcode = QrCode::size(200)->generate($data->nama_anggota);
+        return view('page.anggota.qrcode', ['qrcode' => $qrcode]);
     }
 }

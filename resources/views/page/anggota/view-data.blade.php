@@ -41,7 +41,10 @@
                             @foreach($anggota as $i => $data )
                             <tr>
                                 <td>{{ $i+1 }}</td>
-                                <td>{{ $data->nim_anggota }}</td>
+                                <td>
+                                    <a href="{{ route('qrcode-anggota', $data->id) }}" class="btn btn-xs btn-primary">QR</a>
+                                    {{ $data->nim_anggota }}
+                                </td>
                                 <td>{{ $data->nama_anggota }}</td>
                                 <td>{{ $data->jk_anggota }}</td>
                                 <td>{{ $data->nohp_anggota }}</td>
