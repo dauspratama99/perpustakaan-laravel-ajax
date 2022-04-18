@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2022 at 06:20 AM
+-- Generation Time: Apr 18, 2022 at 10:05 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
@@ -58,12 +58,11 @@ INSERT INTO `anggotas` (`id`, `nim_anggota`, `nama_anggota`, `jk_anggota`, `nohp
 
 CREATE TABLE `buku_models` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `isbn_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isbn_buku` varchar(255) CHARACTER SET utf8 NOT NULL,
   `judul_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tahun_terbit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `penerbit_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pengarang_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kategori_buku_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rak_buku_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gambar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -75,13 +74,9 @@ CREATE TABLE `buku_models` (
 -- Dumping data for table `buku_models`
 --
 
-INSERT INTO `buku_models` (`id`, `isbn_buku`, `judul_buku`, `tahun_terbit`, `penerbit_buku`, `pengarang_buku`, `kategori_buku_id`, `rak_buku_id`, `jumlah_buku`, `gambar`, `created_at`, `updated_at`) VALUES
-(1, '121228120001', 'Kesehatan Lingkungan', '2020', 'Erlangga', 'Leo Sutanto', '1', '1', '100', 'download (1).jfif', NULL, NULL),
-(2, '121228120001', 'Sejarah Indonesia', '2020', 'Erlangga', 'Pirdaus', '3', '4', '100', 'download (3).jfif', NULL, NULL),
-(3, '121228120002', 'Kesehatan Reproduksi', '2019', 'Erlangga', 'Dr. Citra', '1', '2', '100', 'download (2).jfif', NULL, NULL),
-(4, '121228120003', 'Kesehatan Lingkungan', '2017', 'Erlangga', 'Leo Sutanto', '1', '2', '100', 'download (1).jfif', NULL, NULL),
-(5, '121228120004', 'Belajar Membaca', '2019', 'Erlangga', 'Pirdaus', '5', '6', '100', 'download.jfif', NULL, NULL),
-(6, '121228120005', 'Mimpi Yang Terlarang', '2020', 'Erlangga', 'Mas Budiman', '2', '3', '100', 'images.jfif', NULL, NULL);
+INSERT INTO `buku_models` (`id`, `isbn_buku`, `judul_buku`, `tahun_terbit`, `penerbit_buku`, `pengarang_buku`, `rak_buku_id`, `jumlah_buku`, `gambar`, `created_at`, `updated_at`) VALUES
+(8, '121228120001', 'Kancil VS Monyet', '2021', 'Erlangga', 'Leo Sutanto', '8', '80', 'download (3).jfif', NULL, NULL),
+(9, '121228120002', 'Rumah Kayu', '2021', 'Erlangga', 'dausPir', '8', '80', 'images.jfif', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -117,11 +112,8 @@ CREATE TABLE `jenis__bukus` (
 --
 
 INSERT INTO `jenis__bukus` (`id`, `nama_jenis`, `created_at`, `updated_at`) VALUES
-(1, 'Kesehatan', NULL, NULL),
-(2, 'Cerpen', NULL, NULL),
-(3, 'Sejarah', NULL, NULL),
-(4, 'Novel', NULL, NULL),
-(5, 'Majalah', NULL, NULL);
+(8, 'Cerpen', NULL, NULL),
+(9, 'Majalah', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -144,7 +136,8 @@ CREATE TABLE `logins` (
 --
 
 INSERT INTO `logins` (`id`, `nama`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Pirdaus', 'admin', '$2y$10$yn//RY7vOYaMyNJ7niVG.uYGmvWGOkLvvr460LXlkYy6eodrggzLe', NULL, NULL, NULL);
+(1, 'Pirdaus', 'admin', '$2y$10$yn//RY7vOYaMyNJ7niVG.uYGmvWGOkLvvr460LXlkYy6eodrggzLe', NULL, NULL, NULL),
+(2, 'Bg aji', 'admin', '$2y$10$ObMHEoRbsQF87o9YQ/qli.GyeClLuy1BUDEXTbEPwMmtQn3OdQ2Uq', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -215,12 +208,21 @@ CREATE TABLE `peminjamen` (
   `kode_pinjam` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_pinjam` date NOT NULL,
   `tgl_kembali` date NOT NULL,
-  `id_buku_pinjam` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qty` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_anggota_pinjam` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `peminjamen`
+--
+
+INSERT INTO `peminjamen` (`id`, `kode_pinjam`, `tgl_pinjam`, `tgl_kembali`, `id_anggota_pinjam`, `created_at`, `updated_at`) VALUES
+(6, '2022041807044289', '2022-04-18', '2022-04-21', '3', NULL, NULL),
+(7, '20220418070620711', '2022-04-18', '2022-04-21', '3', NULL, NULL),
+(8, '20220418070659693', '2022-04-18', '2022-04-21', '3', NULL, NULL),
+(9, '20220418070720125', '2022-04-18', '2022-04-21', '3', NULL, NULL),
+(10, '20220418070730537', '2022-04-18', '2022-04-21', '3', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -244,7 +246,8 @@ CREATE TABLE `pengembalians` (
 
 INSERT INTO `pengembalians` (`id`, `id_anggota`, `id_buku`, `qty`, `denda`, `created_at`, `updated_at`) VALUES
 (1, '3', '3', '1', '0', NULL, NULL),
-(2, '3', '1', '5', '0', NULL, NULL);
+(2, '3', '1', '5', '0', NULL, NULL),
+(3, '5', '1', '10', '0', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -310,11 +313,30 @@ CREATE TABLE `raks` (
 --
 
 INSERT INTO `raks` (`id`, `nama_rak`, `kapasitas_rak`, `jenis_buku_rak`, `created_at`, `updated_at`) VALUES
-(2, 'Mawar', '500', '1', NULL, NULL),
-(3, 'Melati', '500', '2', NULL, NULL),
-(4, 'Anggrek', '500', '3', NULL, NULL),
-(5, 'Bougenvile', '400', '4', NULL, NULL),
-(6, 'Matahari', '500', '5', NULL, NULL);
+(8, 'Mawar', '500', '8', NULL, NULL),
+(9, 'Melati', '500', '9', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_detail_peminjaman`
+--
+
+CREATE TABLE `tb_detail_peminjaman` (
+  `id` int(11) NOT NULL,
+  `id_peminjaman` int(11) NOT NULL,
+  `isbn_buku` varchar(50) NOT NULL,
+  `judul_buku` varchar(50) NOT NULL,
+  `jumlah_buku_pinjam` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_detail_peminjaman`
+--
+
+INSERT INTO `tb_detail_peminjaman` (`id`, `id_peminjaman`, `isbn_buku`, `judul_buku`, `jumlah_buku_pinjam`) VALUES
+(1, 10, '121228120001', 'Kancil VS Monyet', 20),
+(2, 10, '121228120002', 'Rumah Kayu', 20);
 
 -- --------------------------------------------------------
 
@@ -419,6 +441,12 @@ ALTER TABLE `raks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_detail_peminjaman`
+--
+ALTER TABLE `tb_detail_peminjaman`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -439,7 +467,7 @@ ALTER TABLE `anggotas`
 -- AUTO_INCREMENT for table `buku_models`
 --
 ALTER TABLE `buku_models`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -451,13 +479,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `jenis__bukus`
 --
 ALTER TABLE `jenis__bukus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `logins`
 --
 ALTER TABLE `logins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -469,19 +497,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `peminjaman__temps`
 --
 ALTER TABLE `peminjaman__temps`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `peminjamen`
 --
 ALTER TABLE `peminjamen`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pengembalians`
 --
 ALTER TABLE `pengembalians`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -499,7 +527,13 @@ ALTER TABLE `petugas`
 -- AUTO_INCREMENT for table `raks`
 --
 ALTER TABLE `raks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tb_detail_peminjaman`
+--
+ALTER TABLE `tb_detail_peminjaman`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

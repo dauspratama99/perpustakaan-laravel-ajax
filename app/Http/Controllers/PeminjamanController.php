@@ -11,11 +11,22 @@ class PeminjamanController extends Controller
     public function index()
     {
         $data['peminjaman'] = DB::table('peminjamen')
-                            ->join('buku_models', 'peminjamen.id_buku_pinjam', '=', 'buku_models.id')
                             ->join('anggotas', 'peminjamen.id_anggota_pinjam', '=', 'anggotas.id')
-                            ->select('peminjamen.*', 'buku_models.judul_buku', 'anggotas.nama_anggota')
+                            ->select('peminjamen.*', 'anggotas.nama_anggota')
                             ->get();
         return view('page.peminjaman.view-data', $data);
+    }
+
+    public function detail($id)
+    {
+        $data['detail'] = DB::table('tb_detail_peminjaman')
+                          ->join('peminjamen', 'tb_detail_peminjaman.id_peminjaman', '=', 'peminjamen.id')
+                          ->join('buku_models', 'tb_detail_peminjaman.isbn_buku', '=', 'buku_models.isbn_buku')
+                          ->where('peminjamen.id', $id)
+                          ->select('tb_detail_peminjaman.*',  'peminjamen.*', 'buku_models.*')
+                          ->get();
+  
+        return view('page.peminjaman.detail-data', $data);
     }
 
     public function tambah()
@@ -69,34 +80,40 @@ class PeminjamanController extends Controller
 
     public function store(Request $r)
     {
-        $validator = Validator::make($r->all(), [
-            'anggota' => 'required',
-            'tgl_pinjam' => 'required',
-            'tgl_kembali' => 'required',
-            'id' => 'required',
-            'jumlah' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return redirect('tambah-peminjaman')
-                    ->withErrors($validator)
-                    ->withInput();
-        }
         
-        $simpan = DB::table('peminjamen')->insert([
+        
+        $simpan = DB::table('peminjamen')->insertGetId([
             'kode_pinjam' => date('YmdHis').rand(0,999),
             'tgl_pinjam' => $r->tgl_pinjam,
             'tgl_kembali' => $r->tgl_kembali,
-            'id_buku_pinjam' => $r->id,
-            'qty' => $r->jumlah,
+         
+          
             'id_anggota_pinjam' => $r->anggota, 
         ]);
 
-        $stok = DB::table('buku_models')->where('id',$r->id)->update([
-            "jumlah_buku" => DB::raw('jumlah_buku - '.$r->jumlah),
-        ]);
+        $id = DB::getPdo()->lastInsertId();
+
+
+
+
+
+
 
         if($simpan == true){
+            $tmp = DB::table('peminjaman__temps')->get();
+            foreach($tmp as $t){
+                $simpan = DB::table('tb_detail_peminjaman')->insert([
+                    'id_peminjaman' => $id,
+                    'isbn_buku' => $t->isbn,
+                    'judul_buku' => $t->judul,
+                    'jumlah_buku' => $t->jumlah,
+                ]);
+
+                $stok = DB::table('buku_models')->where('isbn_buku',$t->isbn)->update([
+                    "jumlah_buku" => DB::raw('jumlah_buku - '.$t->jumlah),
+                ]);
+            }
+            $hapus = DB::table('peminjaman__temps')->delete();
             return redirect('peminjaman')->with('success','Succsess');
         } else {
             return redirect('peminjaman')->with('error','Gagal');

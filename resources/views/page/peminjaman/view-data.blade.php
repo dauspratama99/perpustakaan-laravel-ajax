@@ -29,8 +29,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nomor Peminjaman</th>
-                                <th>Buku</th>
-                                <th>Jumlah</th>
+                               
                                 <th>Nama Peminjam</th>
                                 <th>Tgl Pinjam</th>
                                 <th>Tgl Kembali</th>
@@ -42,16 +41,17 @@
                             <tr>
                                 <td>{{ $i+1 }}</td>
                                 <td>{{ $data->kode_pinjam }}</td>
-                                <td>{{ $data->judul_buku }}</td>
-                                <td>{{ $data->qty }}</td>
+                                 
                                 <td>{{ $data->nama_anggota }}</td>
                                 <td>{{ date('d F Y', strtotime($data->tgl_pinjam)) }}</td>
                                 <td>{{ date('d F Y', strtotime($data->tgl_kembali)) }}</td>
                                 <td>
+                                    <a href="{{ route('detail-peminjaman', $data->id) }}"
+                                        class="btn btn-xs btn-info"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('cetak-bukti-peminjaman', $data->id) }}"
-                                        class="btn btn-sm btn-primary"><i class="fas fa-print"></i></a>
+                                        class="btn btn-xs btn-primary"><i class="fas fa-print"></i></a>
                                     <a href="{{ route('hapus-peminjaman', $data->id) }}"
-                                        class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                        class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach

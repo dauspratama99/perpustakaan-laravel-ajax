@@ -81,6 +81,7 @@ Route::group(['middleware' => ['web','auth:login']],function(){
     Route::post('/simpan-peminjaman', [PeminjamanController::class, 'store'])->name('simpan-peminjaman');
     Route::get('/cetak-bukti-peminjaman/{id}', [PeminjamanController::class, 'cetakBuktiPeminjaman'])->name('cetak-bukti-peminjaman');
     Route::get('/hapus-peminjaman/{id}', [PeminjamanController::class, 'destroy'])->name('hapus-peminjaman');
+    Route::get('/detail-peminjaman/{id}', [PeminjamanController::class, 'detail'])->name('detail-peminjaman');
     
     //pengembalian 
     Route::get('/pengembalian',[PengembalianController::class, 'index'])->name('pengembalian');

@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <label for="">Isbn Buku</label>
                                     <input type="hidden" id="id" class="form-control" name="id" required>
-                                    <input type="text" id="isbn" class="form-control" name="isbn" required>
+                                    <input type="text" id="isbn" class="form-control" name="isbn" >
                                 </div>
                             </div>
 
